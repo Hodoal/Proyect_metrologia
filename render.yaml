@@ -3,10 +3,12 @@ services:
     name: metrologia-backend
     runtime: node
     rootDir: backend
-    buildCommand: npm install && npm run build
+  buildCommand: npm install --include=dev && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 5001
+      - key: NPM_CONFIG_PRODUCTION
+        value: "false"
