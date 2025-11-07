@@ -16,7 +16,7 @@ import {
   Bar 
 } from 'recharts';
 import { AnalysisResult } from '@/types';
-import { Activity, BarChart3, LineChart as LineChartIcon, Settings } from 'lucide-react';
+import { Activity, BarChart3, LineChart as LineChartIcon, Settings, CheckCircle, AlertTriangle } from 'lucide-react';
 
 interface ChartsProps {
   results: AnalysisResult;
@@ -290,9 +290,15 @@ export default function Charts({ results }: ChartsProps) {
                   <h4 className="font-semibold text-gray-800 mb-2">Interpretación</h4>
                   <div className="text-sm text-gray-700">
                     {results.chi2Red < 1.2 ? (
-                      <p className="text-green-700">✓ Los residuos sugieren un buen ajuste del modelo.</p>
+                      <p className="text-green-700 flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4" />
+                        Los residuos sugieren un buen ajuste del modelo.
+                      </p>
                     ) : (
-                      <p className="text-amber-700">⚠ Los residuos sugieren revisar el modelo o las incertidumbres.</p>
+                      <p className="text-amber-700 flex items-center gap-2">
+                        <AlertTriangle className="w-4 h-4" />
+                        Los residuos sugieren revisar el modelo o las incertidumbres.
+                      </p>
                     )}
                     <p className="mt-1">
                       Una distribución aleatoria alrededor de cero indica un modelo apropiado.

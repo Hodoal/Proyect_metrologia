@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Download, TrendingUp, Calculator, FileText } from 'lucide-react';
+import { Download, TrendingUp, Calculator, FileText, Target, BarChart, CheckCircle, AlertTriangle } from 'lucide-react';
 import { AnalysisResult } from '@/types';
 
 interface ResultsDisplayProps {
@@ -216,7 +216,10 @@ export default function ResultsDisplay({
       {/* Physical Interpretation (if available) */}
       {results.physicalInterpretation && (
         <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-6 border-l-4 border-purple-500">
-          <h3 className="text-lg font-bold text-purple-900 mb-3">🎯 Interpretación Física (Cinemática)</h3>
+          <h3 className="text-lg font-bold text-purple-900 mb-3 flex items-center gap-2">
+            <Target className="w-5 h-5" />
+            Interpretación Física (Cinemática)
+          </h3>
           <div className="bg-white rounded-lg p-4 text-gray-800 whitespace-pre-line leading-relaxed">
             {results.physicalInterpretation}
           </div>
@@ -226,7 +229,10 @@ export default function ResultsDisplay({
       {/* Normality Test (if available) */}
       {results.normalityTest && (
         <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 border-l-4 border-green-500">
-          <h3 className="text-lg font-bold text-green-900 mb-3">📊 Test de Normalidad (Jarque-Bera)</h3>
+          <h3 className="text-lg font-bold text-green-900 mb-3 flex items-center gap-2">
+            <BarChart className="w-5 h-5" />
+            Test de Normalidad (Jarque-Bera)
+          </h3>
           <div className="grid md:grid-cols-2 gap-4">
             <div className="bg-white rounded-lg p-4">
               <div className="space-y-2 text-sm">
@@ -250,12 +256,15 @@ export default function ResultsDisplay({
             </div>
             <div className="bg-white rounded-lg p-4">
               <div className="mb-2">
-                <span className={`inline-block px-4 py-2 rounded-lg font-semibold ${
+                <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold ${
                   results.normalityTest.isNormal 
                     ? 'bg-green-100 text-green-800' 
                     : 'bg-yellow-100 text-yellow-800'
                 }`}>
-                  {results.normalityTest.isNormal ? '✅ Distribución Normal' : '⚠️ No Normal'}
+                  {results.normalityTest.isNormal 
+                    ? <><CheckCircle className="w-4 h-4" /> Distribución Normal</> 
+                    : <><AlertTriangle className="w-4 h-4" /> No Normal</>
+                  }
                 </span>
               </div>
               <p className="text-sm text-gray-700 mt-3">
@@ -268,7 +277,10 @@ export default function ResultsDisplay({
 
       {/* Interpretation */}
       <div className="bg-blue-50 rounded-xl p-6 border-l-4 border-blue-500">
-        <h3 className="text-lg font-bold text-blue-900 mb-3">📈 Interpretación Estadística</h3>
+        <h3 className="text-lg font-bold text-blue-900 mb-3 flex items-center gap-2">
+          <TrendingUp className="w-5 h-5" />
+          Interpretación Estadística
+        </h3>
         
         <div className="prose prose-blue max-w-none">
           <p className="text-blue-800 mb-3">

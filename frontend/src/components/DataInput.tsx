@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useCallback, useEffect } from 'react';
-import { Upload, FileText, AlertCircle, X, Download, Trash2 } from 'lucide-react';
+import { Upload, FileText, AlertCircle, X, Download, Trash2, Save, Settings, CheckCircle } from 'lucide-react';
 import { DataPoint, AdjustmentType } from '@/types';
 import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
@@ -279,7 +279,7 @@ export default function DataInput({ onDataChange, isLoading }: DataInputProps) {
         setFileData(null);
         setError('');
         
-        alert('✅ Todos los datos han sido borrados y restaurados a valores por defecto');
+        alert('Todos los datos han sido borrados y restaurados a valores por defecto');
       }
     }
   }, []);
@@ -367,16 +367,20 @@ export default function DataInput({ onDataChange, isLoading }: DataInputProps) {
 
       {/* Auto-save notification */}
       <div className="bg-green-50 rounded-lg p-4 border-l-4 border-green-500">
-        <p className="text-sm text-green-800">
-          💾 <strong>Autoguardado activado:</strong> Tus datos se guardan automáticamente mientras escribes. 
-          Permanecerán disponibles incluso si cierras el navegador.
+        <p className="text-sm text-green-800 flex items-center gap-2">
+          <Save className="w-4 h-4" />
+          <span><strong>Autoguardado activado:</strong> Tus datos se guardan automáticamente mientras escribes. 
+          Permanecerán disponibles incluso si cierras el navegador.</span>
         </p>
       </div>
 
       {/* Manual Input */}
       {/* Kinematic Analysis Configuration */}
       <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-lg p-6 border-2 border-purple-200 space-y-4">
-        <h3 className="text-lg font-bold text-purple-900 mb-4">⚙️ Configuración de Análisis Cinemático</h3>
+        <h3 className="text-lg font-bold text-purple-900 mb-4 flex items-center gap-2">
+          <Settings className="w-5 h-5" />
+          Configuración de Análisis Cinemático
+        </h3>
         
         <div className="grid md:grid-cols-3 gap-4">
           <div className="space-y-2">
@@ -423,25 +427,28 @@ export default function DataInput({ onDataChange, isLoading }: DataInputProps) {
 
         {/* Linearization Suggestions */}
         <div className="bg-white rounded-lg p-4 border-l-4 border-purple-500">
-          <p className="text-sm font-semibold text-purple-900 mb-2">💡 Sugerencia de Linealización:</p>
-          <p className="text-sm text-gray-700">
+          <p className="text-sm font-semibold text-purple-900 mb-2 flex items-center gap-2">
+            <AlertCircle className="w-4 h-4" />
+            Sugerencia de Linealización:
+          </p>
+          <p className="text-sm text-gray-700 flex items-start gap-2">
             {motionType === 'MRU' && kinematicVariable === 'x-t' && (
-              <>✅ <strong>Usa ajuste lineal:</strong> x = v·t + x₀ (velocidad constante en la pendiente)</>
+              <><CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0 text-green-600" /> <span><strong>Usa ajuste lineal:</strong> x = v·t + x₀ (velocidad constante en la pendiente)</span></>
             )}
             {motionType === 'MRU' && kinematicVariable === 'v-t' && (
-              <>✅ <strong>Usa ajuste lineal:</strong> v = constante (pendiente ≈ 0 para MRU ideal)</>
+              <><CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0 text-green-600" /> <span><strong>Usa ajuste lineal:</strong> v = constante (pendiente ≈ 0 para MRU ideal)</span></>
             )}
             {motionType === 'MRUA' && kinematicVariable === 'v-t' && (
-              <>✅ <strong>Usa ajuste lineal:</strong> v = a·t + v₀ (aceleración constante en la pendiente)</>
+              <><CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0 text-green-600" /> <span><strong>Usa ajuste lineal:</strong> v = a·t + v₀ (aceleración constante en la pendiente)</span></>
             )}
             {motionType === 'MRUA' && kinematicVariable === 'x-t' && adjustmentType === 'lineal' && (
-              <>✅ <strong>Linealización automática activada:</strong> El sistema transformará automáticamente los datos a x vs t² para obtener: x = x₀ + (a/2)·t². La aceleración se calculará como a = 2×pendiente.</>
+              <><CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0 text-green-600" /> <span><strong>Linealización automática activada:</strong> El sistema transformará automáticamente los datos a x vs t² para obtener: x = x₀ + (a/2)·t². La aceleración se calculará como a = 2×pendiente.</span></>
             )}
             {motionType === 'MRUA' && kinematicVariable === 'x-t' && adjustmentType === 'potencial' && (
-              <>✅ <strong>Ajuste potencial correcto:</strong> Para MRUA, x ∝ t² con exponente n ≈ 2</>
+              <><CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0 text-green-600" /> <span><strong>Ajuste potencial correcto:</strong> Para MRUA, x ∝ t² con exponente n ≈ 2</span></>
             )}
             {motionType === 'MRUA' && kinematicVariable === 'a-t' && (
-              <>✅ <strong>Usa ajuste lineal:</strong> a = constante (pendiente ≈ 0 para MRUA ideal)</>
+              <><CheckCircle className="w-4 h-4 mt-0.5 flex-shrink-0 text-green-600" /> <span><strong>Usa ajuste lineal:</strong> a = constante (pendiente ≈ 0 para MRUA ideal)</span></>
             )}
           </p>
         </div>
